@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 /**
- * Dto for a playbook, should be anemic and front-oriented
+ * Dto for a playbook, should be anemic and front-oriented.
  */
 export class PlaybookDto {
   @ApiProperty({ required: false })
@@ -36,9 +36,16 @@ export class PlaybookComponentDto {
   config?: any;
 
   /**
-   * All size, position, color and UI-only related data, to save as-is
+   * All size, position, color and UI-only related data, to save as-is.
+   * No validation, front-end only use
    */
   layout: any;
 
+  /**
+   * Next steps of the playbook.
+   * Key : an explicit identifier of the output of the component ("Yes", "timeout")
+   * Value : the next component in the flow.
+   *    If left opened, output visible to be picked up by parent playbook ?
+   */
   outputs: Map<string, PlaybookComponentDto>;
 }

@@ -10,6 +10,7 @@ import {
 import { ApiOkResponse, ApiProperty, ApiTags } from '@nestjs/swagger';
 import { PlaybookDto } from './playbook.dto';
 import { PlaybookRepository } from './playbook.repository';
+import { PlaybookService } from './playbook.service';
 
 /**
  * Playbook endpoints
@@ -22,13 +23,15 @@ import { PlaybookRepository } from './playbook.repository';
 @ApiTags('playbook')
 @Controller('api/:tenantId/playbook')
 export class PlaybookController {
-  private _repo: PlaybookRepository;
+  private repo: PlaybookRepository;
+  private service: PlaybookService;
 
   constructor() {
     const dto = new PlaybookDto();
     dto.id = '0';
     dto.name = 'the playbook';
-    this._repo = new PlaybookRepository([dto]);
+    this.repo = new PlaybookRepository([dto]);
+    this.service = new PlaybookService(this.repo);
   }
 
   @Get(':id')
@@ -37,7 +40,7 @@ export class PlaybookController {
     @Param('id') id: string,
     @Param('tenantId') tenantId: string,
   ): PlaybookDto {
-    const result = this._repo.findById(id, tenantId);
+    const result = this.repo.findById(id, tenantId);
     if (result.isFail)
       throw new HttpException('Playbook not found', HttpStatus.NOT_FOUND);
     return result.value;
@@ -52,7 +55,7 @@ export class PlaybookController {
 
     // TODO : make a full-fledge entity Playbook, let it validate itself and save it.
 
-    const result = this._repo.save(json);
+    const result = this.service.save(json);
     if (result.isFail)
       throw new HttpException(
         'playbook not saved' + result.error,
