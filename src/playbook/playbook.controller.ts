@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Param, Put } from '@nestjs/common';
 import { ApiOkResponse, ApiProperty, ApiTags } from '@nestjs/swagger';
+import { PlaybookDto } from './playbook.dto';
 
 @ApiTags('playbook')
 @Controller('playbook')
@@ -15,9 +16,4 @@ export class PlaybookController {
   create(@Body() json: PlaybookDto): void {
     return;
   }
-}
-
-export class PlaybookDto {
-  @ApiProperty({ required: false })
-  id?: string;
 }
