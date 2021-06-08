@@ -42,6 +42,7 @@ describe('PlaybookController', () => {
       expectHttpException(() => controller.update({ name: 'some name' }), 400);
     });
 
+    // TODO : duplication with service, make test thinner
     it('should save a valid playbook', () => {
       const newName = 'renamed playbook';
       const playbook = new PlaybookDto();

@@ -26,6 +26,10 @@
 
 A [take home test](https://www.notion.so/Take-home-test-8bbf659eebe74d7f9c7ea287863c7343) based on NestJs framework, with Swagger & Jest.
 
+## Open points
+
+- logging
+
 ## Installation
 
 ```bash
@@ -44,6 +48,8 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
+
+[Swagger default UI](http://localhost:3000/api/)
 
 ## Test
 
