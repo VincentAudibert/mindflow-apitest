@@ -50,5 +50,14 @@ describe('PlaybookController', () => {
 
       expect(updated.name).toEqual(newName);
     });
+
+    it('should 500 an invalid playbook', () => {
+      const newName = 'whatever playbook';
+      const playbook = new PlaybookDto();
+      playbook.id = '123456';
+      playbook.name = newName;
+
+      expectHttpException(() => controller.update(playbook), 500);
+    });
   });
 });

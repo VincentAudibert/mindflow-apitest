@@ -15,12 +15,12 @@ import { PlaybookRepository } from './playbook.repository';
  * Playbook endpoints
  *
  * TODO :
- * - auth of user
- * - tenant handling
+ * - auth of user (by JWT ?)
+ * - tenant handling as path variable to segregate high-level customers
  *
  */
 @ApiTags('playbook')
-@Controller('playbook')
+@Controller('api/:tenantId/playbook')
 export class PlaybookController {
   private _repo: PlaybookRepository;
 
@@ -34,6 +34,7 @@ export class PlaybookController {
   @Get(':id')
   @ApiOkResponse({ type: PlaybookDto })
   getById(@Param('id') id: string): PlaybookDto {
+    // TODO : use tenantId to check access
     const result = this._repo.findById(id);
     if (result.isFail)
       throw new HttpException('Playbook not found', HttpStatus.NOT_FOUND);
@@ -43,10 +44,17 @@ export class PlaybookController {
   @Put()
   @ApiOkResponse()
   update(@Body() json: PlaybookDto): void {
+    // TODO : expand data sanitation & pre-validation
     if (!json?.id)
       throw new HttpException('Missing id on playbook', HttpStatus.BAD_REQUEST);
 
-    this._repo.save(json);
+    // TODO : delegate validation & save
+    const result = this._repo.save(json);
+    if (result.isFail)
+      throw new HttpException(
+        'playbook not saved' + result.error,
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     return;
   }
 }

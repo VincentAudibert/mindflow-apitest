@@ -23,5 +23,6 @@ export class PlaybookRepository {
     const index = this._playbooks.findIndex((p) => p.id == playbook.id);
     if (index < 0) return Result.fail('not found');
     this._playbooks[index] = playbook;
+    return Result.ok();
   }
 }
