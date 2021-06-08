@@ -45,6 +45,8 @@ export class PlaybookController {
   update(@Body() json: PlaybookDto): void {
     if (!json?.id)
       throw new HttpException('Missing id on playbook', HttpStatus.BAD_REQUEST);
+
+    this._repo.save(json);
     return;
   }
 }
