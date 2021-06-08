@@ -13,7 +13,8 @@ export class PlaybookRepository {
     this._playbooks = playbooks;
   }
 
-  findById(id: string): Result<PlaybookDto> {
+  findById(id: string, tenantId: string): Result<PlaybookDto> {
+    // TODO : use tenantId to check access
     const lookup = this._playbooks.find((p) => p.id == id);
     if (!lookup) return Result.fail('not found');
     return Result.ok(lookup);

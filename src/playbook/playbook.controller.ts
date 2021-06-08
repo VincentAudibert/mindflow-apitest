@@ -33,9 +33,11 @@ export class PlaybookController {
 
   @Get(':id')
   @ApiOkResponse({ type: PlaybookDto })
-  getById(@Param('id') id: string): PlaybookDto {
-    // TODO : use tenantId to check access
-    const result = this._repo.findById(id);
+  getById(
+    @Param('id') id: string,
+    @Param('tenantId') tenantId: string,
+  ): PlaybookDto {
+    const result = this._repo.findById(id, tenantId);
     if (result.isFail)
       throw new HttpException('Playbook not found', HttpStatus.NOT_FOUND);
     return result.value;
@@ -48,7 +50,8 @@ export class PlaybookController {
     if (!json?.id)
       throw new HttpException('Missing id on playbook', HttpStatus.BAD_REQUEST);
 
-    // TODO : delegate validation & save
+    // TODO : make a full-fledge entity Playbook, let it validate itself and save it.
+
     const result = this._repo.save(json);
     if (result.isFail)
       throw new HttpException(

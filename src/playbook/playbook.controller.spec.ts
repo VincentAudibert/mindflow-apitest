@@ -26,11 +26,14 @@ describe('PlaybookController', () => {
 
   describe('GET a playbook by id', () => {
     it('should return an existing playbook', () => {
-      expect(controller.getById('0')).toBeTruthy();
+      expect(controller.getById('0', 'a tenantId')).toBeTruthy();
     });
 
     it('should 404 a non-existing playbook', () => {
-      expectHttpException(() => controller.getById('123456'), 404);
+      expectHttpException(
+        () => controller.getById('123456', 'a tenantId'),
+        404,
+      );
     });
   });
 
@@ -46,7 +49,7 @@ describe('PlaybookController', () => {
       playbook.name = newName;
 
       controller.update(playbook);
-      const updated = controller.getById(playbook.id);
+      const updated = controller.getById(playbook.id, 'a tenantId');
 
       expect(updated.name).toEqual(newName);
     });
