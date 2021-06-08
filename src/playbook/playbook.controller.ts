@@ -1,8 +1,8 @@
 import { Body, Controller, Get, Param, Put } from '@nestjs/common';
-import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOkResponse, ApiProperty, ApiTags } from '@nestjs/swagger';
 
-@ApiTags('community')
-@Controller('community')
+@ApiTags('playbook')
+@Controller('playbook')
 export class PlaybookController {
   @Get(':id')
   @ApiOkResponse({ type: PlaybookDto })
@@ -17,4 +17,7 @@ export class PlaybookController {
   }
 }
 
-class PlaybookDto {}
+export class PlaybookDto {
+  @ApiProperty({ required: false })
+  id?: string;
+}
