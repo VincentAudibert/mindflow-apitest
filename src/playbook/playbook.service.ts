@@ -5,7 +5,7 @@ import { PlaybookRepository } from './playbook.repository';
 /**
  * Service to hold validation logic of a playbook.
  *
- * TODO : move to a more OOP approach by instantiating a Playbook model that can self-validate when enough logic here.
+ * TODO : move to a more OOP approach by instantiating a rich Playbook model that can self-validate when enough logic here.
  */
 export class PlaybookService {
   constructor(private repo: PlaybookRepository) {}

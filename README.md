@@ -28,7 +28,10 @@ A [take home test](https://www.notion.so/Take-home-test-8bbf659eebe74d7f9c7ea287
 
 ## Open points
 
-- logging
+- logging not done
+- HTTP REST vs WS : HTTP REST for simplicity sake
+- Best playbook structure : fully nested or flattened
+- Swagger schema description : draft attributes lacking usefull description
 
 ## Installation
 
@@ -41,25 +44,13 @@ $ npm install
 ```bash
 # development
 $ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
 ```
 
-[Swagger default UI](http://localhost:3000/api/)
+Reaching API docs : [Swagger default UI](http://localhost:3000/api/)
 
 ## Test
 
 ```bash
 # unit tests
 $ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
 ```
