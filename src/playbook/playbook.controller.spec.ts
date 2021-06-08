@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { expectHttpException } from 'src/test/utils';
 import { PlaybookController } from './playbook.controller';
+import { PlaybookDto } from './playbook.dto';
 
 /**
  * Playbook Controller tests
@@ -23,11 +24,31 @@ describe('PlaybookController', () => {
     expect(controller).toBeDefined();
   });
 
-  it('should return an existing playbook', () => {
-    expect(controller.getById('0')).toBeTruthy();
+  describe('GET a playbook by id', () => {
+    it('should return an existing playbook', () => {
+      expect(controller.getById('0')).toBeTruthy();
+    });
+
+    it('should 404 a non-existing playbook', () => {
+      expectHttpException(() => controller.getById('123456'), 404);
+    });
   });
 
-  it('should 404 a non-existing playbook', () => {
-    expectHttpException(() => controller.getById('123456'), 404);
+  describe('PUT a playbook', () => {
+    it('should 400 a id-less playbook', () => {
+      expectHttpException(() => controller.update({ name: 'some name' }), 400);
+    });
+
+    it('should save a valid playbook', () => {
+      const newName = 'renamed playbook';
+      const playbook = new PlaybookDto();
+      playbook.id = '0';
+      playbook.name = newName;
+
+      controller.update(playbook);
+      const updated = controller.getById(playbook.id);
+
+      expect(updated.name).toEqual(newName);
+    });
   });
 });

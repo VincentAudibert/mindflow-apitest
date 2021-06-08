@@ -27,6 +27,7 @@ export class PlaybookController {
   constructor() {
     const dto = new PlaybookDto();
     dto.id = '0';
+    dto.name = 'the playbook';
     this._repo = new PlaybookRepository([dto]);
   }
 
@@ -42,6 +43,8 @@ export class PlaybookController {
   @Put()
   @ApiOkResponse()
   update(@Body() json: PlaybookDto): void {
+    if (!json?.id)
+      throw new HttpException('Missing id on playbook', HttpStatus.BAD_REQUEST);
     return;
   }
 }
